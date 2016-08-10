@@ -1,6 +1,6 @@
 FROM centos
 
-MAINTAINER ZerounYang
+MAINTAINER ZerounNet
 
 # MariaDB Repo
 COPY mariadb.repo /etc/yum.repos.d/mariadb.repo
