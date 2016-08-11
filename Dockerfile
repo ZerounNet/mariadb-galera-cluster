@@ -10,8 +10,11 @@ RUN yum -y update && \
     groupadd -r mysql && useradd -r -g mysql mysql && \
     yum -y install MariaDB-server MariaDB-client galera which && \
     yum clean all && \
+    rm -rf /var/lib/mysql && \
+    mkdir -p /var/lib/mysql && \
+    chown mysql:mysql /var/lib/mysql && \
     mkdir /docker-entrypoint-initdb.d && \
-	chmod u+x /docker-entrypoint.sh
+    chmod u+x /docker-entrypoint.sh
 
 COPY server.cnf /etc/my.cnf.d/server.cnf
 
