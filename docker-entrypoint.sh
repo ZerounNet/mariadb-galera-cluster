@@ -130,11 +130,13 @@ elif [ ${CLUSTER} = "BOOTSTRAP" ]; then
     exec $@ --wsrep_cluster_name="${CLUSTER_NAME}" \
     --wsrep_cluster_address="gcomm://" \
     --wsrep_node_name="${HOSTNAME}" \
-	--wsrep_new_cluster 
+    --wsrep_node_address="${NODE_IP}" \
+    --wsrep_new_cluster 
 else
     initialize_db $@
     echo "########### Joining MariaDB cluster ${CLUSTER_NAME} on nodes ${CLUSTER}..."
     exec $@ --wsrep_cluster_name="${CLUSTER_NAME}" \
     --wsrep_cluster_address="gcomm://${CLUSTER}" \
+    --wsrep_node_address="${NODE_IP}" \
     --wsrep_node_name="${HOSTNAME}"
 fi
