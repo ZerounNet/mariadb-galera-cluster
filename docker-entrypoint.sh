@@ -4,7 +4,7 @@ set -eo pipefail
 cluster_conf () {
     echo "########### Configuring /etc/my.cnf.d/server.cnf with cluster variables"
     echo "[galera]" > /etc/my.cnf.d/galera.cnf
-	echo "wsrep_on                       = ${HOSTNAME}" >> /etc/my.cnf.d/galera.cnf
+	echo "wsrep_on                       = on" >> /etc/my.cnf.d/galera.cnf
 	if [[ ${SST_USER} && ${SST_PASS} ]]; then
 		echo "wsrep_sst_auth                 = ${SST_USER}:${SST_PASS}" >> /etc/my.cnf.d/galera.cnf
 	fi
@@ -145,17 +145,17 @@ if [ -z ${CLUSTER+x} ]; then
     echo >&2 "########### CLUSTER variable must be defined as STANDALONE, BOOTSTRAP or a comma-separated list of container names."
     exit 1
 elif [ ${CLUSTER} = "STANDALONE" ]; then
-	initialize_db $@
+    initialize_db $@
     echo "########### Starting MariaDB in STANDALONE mode..."
     exec $@
 else
-    cluster_conf
     initialize_db $@
-	if [ ${CLUSTER} = "BOOTSTRAP" ]; then
-		echo "########### Bootstrapping MariaDB cluster ${CLUSTER_NAME} with primary node ${HOSTNAME}..."
-		exec $@ --wsrep_new_cluster 
-	else
-		echo "########### Joining MariaDB cluster ${CLUSTER_NAME} on nodes ${CLUSTER}..."
-		exec $@ 
-	fi
+    cluster_conf
+    if [ ${CLUSTER} = "BOOTSTRAP" ]; then
+        echo "########### Bootstrapping MariaDB cluster ${CLUSTER_NAME} with primary node ${HOSTNAME}..."
+        exec $@ --wsrep_new_cluster 
+    else
+        echo "########### Joining MariaDB cluster ${CLUSTER_NAME} on nodes ${CLUSTER}..."
+        exec $@ 
+    fi
 fi
