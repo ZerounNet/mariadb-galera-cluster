@@ -148,14 +148,14 @@ elif [ ${CLUSTER} = "STANDALONE" ]; then
 	initialize_db $@
     echo "########### Starting MariaDB in STANDALONE mode..."
     exec $@
-elif [ ${CLUSTER} = "BOOTSTRAP" ]; then
-    cluster_conf
-    initialize_db $@
-    echo "########### Bootstrapping MariaDB cluster ${CLUSTER_NAME} with primary node ${HOSTNAME}..."
-    exec $@ --wsrep_new_cluster 
 else
     cluster_conf
     initialize_db $@
-    echo "########### Joining MariaDB cluster ${CLUSTER_NAME} on nodes ${CLUSTER}..."
-    exec $@ 
+	if [ ${CLUSTER} = "BOOTSTRAP" ]; then
+		echo "########### Bootstrapping MariaDB cluster ${CLUSTER_NAME} with primary node ${HOSTNAME}..."
+		exec $@ --wsrep_new_cluster 
+	else
+		echo "########### Joining MariaDB cluster ${CLUSTER_NAME} on nodes ${CLUSTER}..."
+		exec $@ 
+	fi
 fi
