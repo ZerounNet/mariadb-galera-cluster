@@ -12,10 +12,10 @@
 
 设置集群的IP地址
 
-	host_ip_1 = 192.168.1.241
-	host_ip_2 = 192.168.1.242
-	host_ip_3 = 192.168.1.243
-	password = password
+	host_ip_1=192.168.1.241
+	host_ip_2=192.168.1.242
+	host_ip_3=192.168.1.243
+	password=password
 
 启动第一个节点
 
