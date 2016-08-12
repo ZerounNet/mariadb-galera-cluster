@@ -73,8 +73,6 @@ slow-query-log                 = 1
 
 # GALERA SETTINGS #
 [galera]
-wsrep_on                       = on
 wsrep_provider                 = /usr/lib64/galera/libgalera_smm.so
-wsrep_sst_method               = rsync
 wsrep_slave_threads            = 8
 innodb-flush-log-at-trx-commit = 2
