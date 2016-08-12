@@ -11,8 +11,6 @@ RUN yum -y update && \
     yum -y install MariaDB-server MariaDB-client galera which && \
     yum clean all && \
     rm -rf /var/lib/mysql && \
-    mkdir -p /var/lib/mysql && \
-    chown mysql:mysql /var/lib/mysql && \
     mkdir /docker-entrypoint-initdb.d && \
     chmod u+x /docker-entrypoint.sh
 
