@@ -16,6 +16,5 @@ RUN yum -y update && \
 
 COPY server.cnf /etc/my.cnf.d/server.cnf
 
-EXPOSE 3306 4444 4567 4568 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["mysqld"]
