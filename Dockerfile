@@ -9,7 +9,7 @@ RUN yum -y update && \
     rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
     groupadd -r mysql && useradd -r -g mysql mysql && \
     yum -y install http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm && \
-    yum -y install MariaDB-server MariaDB-client galera percona-xtrabackup-24 less which socat && \
+    yum -y install MariaDB-server MariaDB-client galera percona-xtrabackup-24 which socat && \
     yum clean all && \
     mkdir /docker-entrypoint-initdb.d && \
     chmod u+x /docker-entrypoint.sh
